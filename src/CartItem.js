@@ -6,11 +6,33 @@ class CartItem extends React.Component
         super();
         this.state= {
             price: 124999,
-            title: "Samsung S23 Ultra",
+            title: "Samsung Galaxy S23 Ultra",
             qty: 1,
             img: ''
         }
     }
+
+    inceraseQuantity=()=>{
+        // this.setState({
+        //     qty: this.state.qty+1
+        // });
+
+        this.setState((prevState) => {
+            return {
+            qty: prevState.qty + 1
+            }
+        });
+    }
+
+    decreaseQuantity=()=>{
+        this.setState((prevState) => {
+            return {
+            qty: prevState.qty -1
+            }
+        });
+    }
+
+
     render()
     {
         const { price, title, qty } = this.state;
@@ -25,9 +47,23 @@ class CartItem extends React.Component
                     <div style={ { color: '#777' } }>Qty: {qty}</div>
                     <div className="cart-item-actions">
                         {/* Buttons */}
-                        <img alt="incerase" className="action-icons" src="https://cdn-icons-png.flaticon.com/512/1828/1828925.png" />
-                        <img alt="decrease" className="action-icons" src="https://cdn-icons-png.flaticon.com/512/43/43625.png" />
-                        <img alt="delete" className="action-icons" src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png" />
+                        <img
+                            alt="incerase"
+                            className="action-icons"
+                            src="https://cdn-icons-png.flaticon.com/512/10041/10041625.png"
+                            onClick={this.inceraseQuantity}
+                        />
+                        <img
+                            alt="decrease"
+                            className="action-icons"
+                            src="https://cdn-icons-png.flaticon.com/512/1828/1828906.png"
+                            onClick={this.decreaseQuantity}
+                        />
+                        <img
+                            alt="delete"
+                            className="action-icons"
+                            src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
+                        />
                     </div>
                 </div>
             </div>
