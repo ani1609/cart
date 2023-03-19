@@ -7,7 +7,7 @@ class Cart extends React.Component
     constructor(){
         super();
         this.state= {
-            product: [
+            products: [
                 {
                     title: "Samsung Galaxy S23 Ultra",
                     price: 124999,
@@ -32,15 +32,56 @@ class Cart extends React.Component
             ]
         }
     }
+    handleIncreaseQuantity=(product)=>
+    {
+        console.log("hey increase the quantity of ", product);
+        const {products}=this.state;
+        const index=products.indexOf(product);
+        products[index].qty += 1;
+        this.setState({
+            products: products
+        })
+    }
+
+    handelDecreaseQuantity=(product)=>
+    {
+        console.log(product);
+        const{products}=this.state;
+        const index=products.indexOf(product);
+        if (products[index].qty==0)
+            return;
+        products[index].qty -= 1;;
+        this.setState({
+            products: products
+        })
+    }
+
+    handelDeleteProduct=(id)=>
+    {
+        const {products}=this.state;
+        const items=products.filter((item)=> item.id!==id);
+        this.setState(
+        {
+            products: items
+        })
+    }
 
     render()
     {
-        const {product}=this.state;
+        const {products}=this.state;
         return(
             <div> 
                 <h2>YOUR CART</h2>
-                {product.map((product) =>{
-                    return <CartItem product={product} key={product.id}/>
+                {products.map((product) =>{
+                    return (
+                        <CartItem
+                        product={product}
+                        key={product.id}
+                        onIncreaseQuantity={this.handleIncreaseQuantity}
+                        onDecreaseQuantity={this.handelDecreaseQuantity}
+                        onDeleteProduct={this.handelDeleteProduct}
+                        />
+                    )
                 })}
             </div>
         );
